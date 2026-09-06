@@ -9,11 +9,14 @@ on:
 jobs:
   build:
     runs-on: ubuntu-latest
+    permissions:
+      contents: read
+      packages: write
 
     steps:
     - name: checkout repo
-      uses: actions/checkout@v2
-
+      uses: actions/checkout@v4
+      
     - name: setup python env
       uses: actions/setup-python@v5
       with:
@@ -26,3 +29,12 @@ jobs:
     
     - name: Run Tests
       run: pytest
+
+    - name: docker building and pushing
+      uses: mr-smithers-excellent/docker-build-push@v7
+      with:
+        image: kanna1718/python-flask-app
+        tags: v1
+        registry: ghcr.io
+        username: ${{ github.actor }}
+        password: ${{ secrets.GITHUB_TOKEN }}
