@@ -79,4 +79,4 @@ jobs:
   #       password: ${{ secrets.GITHUB_TOKEN }}
   deploy:
     needs: build
-    uses: ./.github/workflow/cd.yml
+    uses: ./.github/workflows/cd.yml
