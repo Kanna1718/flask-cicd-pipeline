@@ -26,6 +26,10 @@ jobs:
     #         python-version: "3.10"  
 
     steps:
+
+    - name: custom docker env
+      uses: ./.github/actions/docker
+
     - name: checkout repo
       uses: actions/checkout@v4
       
