@@ -27,11 +27,11 @@ jobs:
 
     steps:
 
-    - name: custom docker env
-      uses: ./.github/actions/docker
-
     - name: checkout repo
       uses: actions/checkout@v4
+
+    - name: custom docker env
+      uses: ./.github/actions/docker
       
     - name: setup python
       uses: actions/setup-python@v5
