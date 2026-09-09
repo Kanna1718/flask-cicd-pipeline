@@ -5,9 +5,11 @@ runs:
   using: composite
   steps:
     - name: Intsall depens
+      shell: bash
       run: pip install -r requirements.txt
     
     - name: Run Test
+      shell: bash
       run: python -m pytest --html=report.html --self-contained-html
     
     - name: Upload Test Report Artifact
