@@ -3,4 +3,4 @@ description: enviroment
 
 runs:
   using: docker
-  image: Dockerfile-env
+  image: Dockerfile
