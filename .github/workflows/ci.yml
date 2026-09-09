@@ -43,17 +43,19 @@ jobs:
         restore-keys: |
           ${{ runner.os }}-pip-
 
-    - name: Intsall depens
-      run: pip install -r requirements.txt
+    - name: Using composite
+      uses: ./.github/actions/tests
+    # - name: Intsall depens
+    #   run: pip install -r requirements.txt
     
-    - name: Run Tests
-      run: python -m pytest --html=report.html --self-contained-html
+    # - name: Run Tests
+    #   run: python -m pytest --html=report.html --self-contained-html
     
-    - name: Upload Test Report Artifact
-      uses: actions/upload-artifact@v4
-      with:
-        name: python test results
-        path: report.html
+    # - name: Upload Test Report Artifact
+    #   uses: actions/upload-artifact@v4
+    #   with:
+    #     name: python test results
+    #     path: report.html
 
   deploy:
     runs-on: ubuntu-latest

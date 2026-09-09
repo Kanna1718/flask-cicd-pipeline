@@ -1,0 +1,17 @@
+name: Running steps
+description: setup running steps
+
+runs:
+  using: composite
+  steps:
+    - name: Intsall depens
+      run: pip install -r requirements.txt
+    
+    - name: Run Test
+      run: python -m pytest --html=report.html --self-contained-html
+    
+    - name: Upload Test Report Artifact
+      uses: actions/upload-artifact@v4
+      with:
+        name: python test results
+        path: report.html
