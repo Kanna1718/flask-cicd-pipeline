@@ -57,23 +57,26 @@ jobs:
     #     name: python test results
     #     path: report.html
 
+  # deploy:
+  #   runs-on: ubuntu-latest
+  #   needs: build  
+  #   if: github.ref == 'refs/heads/main'
+  #   permissions:
+  #     contents: read
+  #     packages: write
+
+  #   steps:
+  #   - name: checkout repo
+  #     uses: actions/checkout@v4
+
+  #   - name: docker building and pushing
+  #     uses: mr-smithers-excellent/docker-build-push@v7
+  #     with:
+  #       image: kanna1718/python-flask-app
+  #       tags: v2
+  #       registry: ghcr.io
+  #       username: ${{ github.actor }}
+  #       password: ${{ secrets.GITHUB_TOKEN }}
   deploy:
-    runs-on: ubuntu-latest
-    needs: build  
-    if: github.ref == 'refs/heads/main'
-    permissions:
-      contents: read
-      packages: write
-
-    steps:
-    - name: checkout repo
-      uses: actions/checkout@v4
-
-    - name: docker building and pushing
-      uses: mr-smithers-excellent/docker-build-push@v7
-      with:
-        image: kanna1718/python-flask-app
-        tags: v2
-        registry: ghcr.io
-        username: ${{ github.actor }}
-        password: ${{ secrets.GITHUB_TOKEN }}
+    needs: build
+    uses: ./.github/workflow/cd.yml

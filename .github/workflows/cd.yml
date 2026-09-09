@@ -1,0 +1,25 @@
+name: pushing container image to ghcr
+
+on:
+  workflow_call:
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    
+    permissions:
+      contents: read
+      packages: write
+
+    steps:
+    - name: checkout repo
+      uses: actions/checkout@v4
+
+    - name: pushing image to ghcr
+      uses: mr-smithers-excellent/docker-build-push@v7
+      with:
+        image: kanna1718/python-flask-app
+        tags: v3
+        registry: ghcr.io
+        username: ${{ github.actor }}
+        password: ${{ secrets.GITHUB_TOKEN }}
