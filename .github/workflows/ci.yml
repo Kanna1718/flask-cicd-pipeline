@@ -11,20 +11,21 @@ on:
 jobs:
   build:
     runs-on: ubuntu-latest
-    strategy:
-      matrix:
-        python-version: ["3.10", "3.11", "3.12"]
+    # strategy:
+    #   matrix:
+    #     python-version: ["3.10", "3.11", "3.12"]
 
     steps:
     - name: checkout repo
       uses: actions/checkout@v4
       
-    - name: setup python ${{ matrix.python-version }}
+    - name: setup python
       uses: actions/setup-python@v5
       with:
-        python-version: ${{ matrix.python-version }}
+        python-version: "3.12"
 
     - name: Cache pip packages
+      id: pip-cache
       uses: actions/cache@v4
       with:
         path: ~/.cache/pip
@@ -33,6 +34,7 @@ jobs:
           ${{ runner.os }}-pip-
 
     - name: Intsall depens
+      if: steps.pip-cache.outputs.cache-hit != 'true'
       run: pip install -r requirements.txt
     
     - name: Run Tests
